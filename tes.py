@@ -1,4 +1,5 @@
-with open('file.txt', 'r') as fin:
-    data = fin.read().splitlines(True)
-with open('file.txt', 'w') as fout:
-    fout.writelines(data[:2])
+with open('tes.txt', 'r') as infile, \
+     open('90990.txt', 'w') as outfile:
+    data = infile.read()
+    data = data.replace("param \= \"*\", "param \= \"ok berhasil\"")
+    outfile.write(data)
