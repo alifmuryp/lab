@@ -1,5 +1,10 @@
-read -p "Ganti File : " file
-read -p "Dari : " kolom1
-read -p "sampai : " kolom2
-sed -i "${kolom1},2d" $file > 10111110.txt
-mv 10111110.txt $file
+read -p "file directory : " dir
+read -p "cari : " cari
+read -p "ganti : " ganti
+satu="find $dir -type f -exec sed -i 's/"
+dua=$cari/$ganti
+tiga="/g' {} \;"
+echo $satu$dua$tiga >> 10111110.sh 
+chmod 777 10111110.sh
+./10111110.sh
+rm 10111110.sh
