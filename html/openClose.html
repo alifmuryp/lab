@@ -1,0 +1,145 @@
+<style type="text/css" media="all">
+body {
+  background: #fbbe05;
+  height: 500vh;
+  padding: 0!important;
+  margin: 0;
+  
+}
+/*spoiler global*/
+ .spoiler input[type="checkbox"] {
+  position: relative;
+  z-index: 100;
+  display: block;
+  padding: 15px;
+  opacity: 0;
+}
+.spoiler label {/* btn spoiler */
+  cursor: pointer;
+  position: relative;
+  z-index: 100;
+  display: block;
+  padding: 15px ;
+  border-top: 1px solid red;
+  border-bottom: 1px solid red;
+  text-align: right;
+  padding-left:50px ;
+}
+
+.contentSpoiler {/*reset daleman*/
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all .6s;
+}
+.spoiler input[type="checkbox"]:checked ~  .contentSpoiler {/*setelah di klick*/
+ opacity: 100%;
+  padding: 30px;
+  height: auto
+}
+/* search btn */
+#search {
+  position: fixed;
+  bottom: 10px;
+  transition: all .4s;
+}
+#search label span {
+  opacity: 0;
+}
+/* Anak Panah (Arrow) */
+.myArrow label::before {/*sebelum checked*/
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 10px;
+/*menambah anak panah*/
+  border-left: 8px solid red;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  margin-top: -8px;
+  transition: all .5s;
+}
+.myArrow input[type="checkbox"]:checked ~ label::before {/*setelah checked*/
+  transform: rotate(90deg) translate(5px,-13px);
+}
+  /* humberger */
+  .humberger label {
+    width: 50px;
+    cursor: pointer;
+  position: relative;
+  z-index: 100;
+  display: block;
+  padding: 15px;
+  }
+  .humberger label span {
+    display: inherit;
+    width: 30px;
+    height: 0;
+    border-top: 5px solid #fff;
+    transition: .5s;
+    margin: 0 auto
+  }
+  .humberger label span:nth-child(2) {
+    transform-origin: 0 0
+  }
+  .humberger label span:nth-child(3) {
+    transform-origin: 0 0
+  }
+  .humberger input[type=checkbox]:checked ~ label span {
+    display: flex;
+    width: 30px;
+    height: 0;
+    border-top: 1px;
+    transition: .5s;
+    margin: -9px 10px auto;
+    opacity: 100%;
+  }
+  .humberger input[type="checkbox"]:checked ~ label span:nth-child(1) {
+    transform: rotate(45deg) translate(5px,23px);
+    color: #fff;
+    border: 3.5px solid;
+    opacity: 100% !important;
+  }
+  .humberger input[type=checkbox]:checked ~ label span:nth-child(2) {
+    transform: scale(0);
+    opacity: 0
+  }
+  .humberger input[type="checkbox"]:checked ~ label span:nth-child(3) {
+    transform: rotate(-45deg) translate(-17px,4px);
+    color: #fff;
+    border: 3.5px solid;
+    opacity: 100% !important;
+  }
+</style>
+<div class="myArrow spoiler">
+<input type="checkbox" id="faq-1">
+<div class=contentSpoiler>She said for $300 she'll do it.</div>
+<label for="faq-1">How much?</label>
+</div>
+<div class="myArrow spoiler">
+<input type="checkbox" id="faq-3">
+<label for="faq-3">How many cans must I stack up?</label>
+<div class=contentSpoiler>As many as you need to wash you out from my mind and out of my consciousness.</div>
+<div class=contentSpoiler>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</div>
+</div>
+<div id="search">
+<div class="humberger search spoiler" >
+<input type="checkbox" id="formal">
+<div class=contentSpoiler>
+<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel iste enim quod perferendis optio dolor illum consectetur voluptate possimus atque? Culpa aut consequuntur officia totam sit vero, quaerat ut at?</div>
+<div>Dolores voluptatem veniam aliquam. Culpa ipsam facilis perferendis dolorem provident soluta omnis sequi in consequuntur iure aliquam cupiditate quasi dolorum deleniti, non, ullam accusantium. Perspiciatis quae quidem, repudiandae eaque numquam.</div>
+<div>Impedit eaque quas atque, necessitatibus molestiae expedita, iure laudantium modi quidem fuga cumque quibusdam perspiciatis itaque similique aspernatur corrupti nulla iste voluptatum eligendi debitis eos delectus quisquam! Alias, rerum, tenetur!</div>
+<div>Ratione unde soluta saepe possimus blanditiis delectus ullam necessitatibus dicta repellendus nisi, temporibus nobis, aut adipisci placeat quaerat velit modi sunt maxime quae assumenda aliquam corporis officiis excepturi eligendi a?</div>
+<div>Non ipsum qui eligendi incidunt illo minus hic, blanditiis veniam consectetur iste expedita, deserunt debitis voluptate quibusdam impedit asperiores, et modi reiciendis tempore magnam assumenda. Mollitia corporis a, officiis tempore!</div>
+</div>
+<label for="formal">
+  <span></span>
+  <span></span>
+  <span></span>
+</label>
+</div>
+</div>
+
+source :https://css-tricks.com/the-checkbox-hack/

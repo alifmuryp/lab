@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Membuat Navigasi Responsive</title>
+  <style type="text/css" media="all">
+    /*=======scroll nav========*/
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(0,0,0,.2);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: darkred;
+}
+    /*reset*/
+    * {
+      margin: 0;
+      padding: 0;
+      max-width: 100vw!important;
+    }
+    body {
+      height: 300vh;
+      min-height: 100vh;
+      background: blue;
+    }
+    /*
+    #darkBtn svg {
+    fill: #fff !important;
+  }
+*/
+    /*=======central nav========*/
+    .centralNav {
+      background: green;
+      color: #fff;
+      text-align: center;
+      width: 100vw;
+      padding: 15px 0 ;
+    }
+    /*=======navigation & spoiler========*/
+    /* icon */
+    .navicon {
+      background-size: 30px;
+      width: 50px;
+      min-height: 50px;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: absolute;
+      left: 15px;
+      background-color: red;
+      border-radius: 15px;
+      transition: all .5s;
+      z-index: 5!important;
+    }
+    #mySearch i {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M23.111 20.058l-4.977-4.977c.965-1.52 1.523-3.322 1.523-5.251 0-5.42-4.409-9.83-9.829-9.83-5.42 0-9.828 4.41-9.828 9.83s4.408 9.83 9.829 9.83c1.834 0 3.552-.505 5.022-1.383l5.021 5.021c2.144 2.141 5.384-1.096 3.239-3.24zm-20.064-10.228c0-3.739 3.043-6.782 6.782-6.782s6.782 3.042 6.782 6.782-3.043 6.782-6.782 6.782-6.782-3.043-6.782-6.782zm2.01-1.764c1.984-4.599 8.664-4.066 9.922.749-2.534-2.974-6.993-3.294-9.922-.749z'/%3E%3C/svg%3E");
+      bottom: 15px;
+    }
+    #myShare i {
+      bottom: 70px;
+      background-image: url("data:image/svg+xml, %3Csvg fill='white' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7c2.761 0 5 2.239 5 5s-2.239 5-5 5-5-2.239-5-5 2.239-5 5-5zm11.122 12.065c-.073.301-.122.611-.122.935 0 2.209 1.791 4 4 4s4-1.791 4-4-1.791-4-4-4c-1.165 0-2.204.506-2.935 1.301l-5.488-2.927c-.23.636-.549 1.229-.943 1.764l5.488 2.927zm7.878-15.065c0-2.209-1.791-4-4-4s-4 1.791-4 4c0 .324.049.634.122.935l-5.488 2.927c.395.535.713 1.127.943 1.764l5.488-2.927c.731.795 1.77 1.301 2.935 1.301 2.209 0 4-1.791 4-4z' /%3E%3C/svg%3E");
+    }
+    /*Anak Panah (Arrow)*/
+    .myArrow label::before {
+      /*sebelum checked*/
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 50%;
+      left: 10px;
+      /*menambah anak panah*/
+      border-left: 8px solid red;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      margin-top: -8px;
+      transition: all .5s;
+    }
+    .myArrow input[type="checkbox"]:checked ~ label::before {
+      /*setelah checked*/
+      transform: rotate(90deg) translate(5px,-13px);
+    }
+    /* humberger */
+.humberger label {
+  max-width: 50px;
+}
+.humberger label span {
+      display: inherit;
+      width: 30px;
+      height: 0;
+      border-top: 5px solid #fff;
+      transition: .5s;
+      margin: 0 auto
+    }
+    .humberger label span:nth-child(2) {
+      transform-origin: 0 0
+    }
+    .humberger label span:nth-child(3) {
+      transform-origin: 0 0
+    }
+    
+    /* Button Navigation sebelum checked*/
+    #navbar,#searchBtn,#shareBtn {
+      box-sizing: border-box;
+      width: 50px;
+      padding: 10px;
+      height: 50px;
+      cursor: pointer;
+      user-select: none;
+      flex-direction: column;
+      justify-content: space-evenly;
+      display: flex;
+      position: absolute;
+      z-index: 6;
+      border-radius: 15px;
+    }
+    #navbar {
+      z-index: 9;
+      bottom: 15px;
+      right: 15px;
+      background: red;
+    }
+#searchBtn span,#shareBtn span {
+      transform: translate(-99px,0);
+    }
+    #searchBtn {
+      left: 15px;
+      bottom: 15px;
+    }
+    #shareBtn {
+      left: 15px;
+      bottom: 70px;
+    }
+    
+    /* setelah checked btn*/
+    .humberger input[type="checkbox"]:checked ~ .navicon {
+      width: 0!important;
+      min-height: 0 !important;
+    }
+    /*humberger checked btn*/
+    .humberger input[type=checkbox]:checked ~ label span {
+      display: flex;
+      width: 30px;
+      height: 0;
+      border-top: 1px;
+      transition: .5s;
+      margin: -9px 10px auto;
+      opacity: 100%;
+    }
+    .humberger input[type="checkbox"]:checked ~ label span:nth-child(1) {
+      transform: rotate(45deg) translate(5px,23px)!important;
+      color: #fff;
+      border: 3.5px solid;
+    }
+    .humberger input[type=checkbox]:checked ~ label span:nth-child(2) {
+      transform: scale(0)!important;
+      opacity: 0
+    }
+    .humberger input[type="checkbox"]:checked ~ label span:nth-child(3) {
+      transform: rotate(-45deg) translate(-17px,4px) !important;
+      color: #fff;
+      border: 3.5px solid;
+    }
+
+/*global navigasi*/
+    input[type="checkbox"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      opacity: 0;
+    }
+    /*spoiler global*/
+    .spoiler input[type="checkbox"] {
+      position: relative;
+      z-index: 8;
+      display: block;
+      padding: 15px;
+      opacity: 0;
+    }
+    .spoiler label {
+      /* btn spoiler */
+      cursor: pointer;
+      position: relative;
+      z-index: 8;
+      display: block;
+      border-top: 1px solid red;
+      border-bottom: 1px solid red;
+      text-align: right;
+      padding: 8px 19px 8px 15px;
+      width: 90% ;
+    }
+
+    /* Navigation slide (bagian dalam navigation) */
+    .navku {
+      position: relative;
+      list-style: none;
+      text-align: right;
+      width: 100%!important;
+      z-index: 8;
+      max-width: 0!important;
+      overflow: scroll !important;
+      top: 0;
+      height: 100vh;
+      background: rgb(235,235,235);
+      transition: 1s;
+      opacity: 0;
+      right: 0;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px #00000033;
+    }
+    .nav input[type=checkbox]:checked ~ #navbar {
+      animation: 4s
+    }
+    .nav input[type=checkbox]:checked ~ div.navku {
+      display: block;
+      max-width: 500px!important;
+      opacity: 1
+    }
+    /* navigation list */
+    li {
+      list-style: none;
+      cursor: pointer;
+      padding: 15px;
+    }
+    li a {
+      display: block;
+      width: 90%;
+      height: 20px;
+      color: #00008bcc;
+      font-weight: bold;
+      color: red;
+    }
+    li:hover {
+      background-color: red;
+      color: #333;
+      opacity: 100%!important;
+    }
+    /*isi konten Spoiler*/
+    #mySearch .contentSpoiler,#myShare .contentSpoiler {
+      width: 100%;
+      position: relative;
+      bottom: 50%;
+      z-index: 9!important
+    }
+    .contentSpoiler {
+      /*reset daleman*/
+      height: 0;
+      opacity: 0;
+      background: red;
+      overflow: hidden;
+      transition: all .6s;
+
+    }
+    .spoiler input[type="checkbox"]:checked ~  .contentSpoiler {
+      /*setelah di klick*/
+      opacity: 100%;
+      padding: 30px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+<div class="centralNav">
+  <heder>
+    <h1 name="MuryP">MuryP</h1>
+  </heder>
+  <!--nav-->
+  <nav class="nav humberger">
+    <input type="checkbox" id="checkbox_toggle">
+    <label id="navbar" for="checkbox_toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <div class="navku">
+      <div class="cardInfo">
+        <a href="https://muryp.gitlab.io/image/authors/muryp.png"> <img src="https://muryp.gitlab.io/image/authors/muryp.min.png" alt="MuryP, MuryP Beta, Internet, Technology, hardware, Operating Sistem, Software, Jaringan Komunikasi, JarKom, TIK, Ringkasan, Alief Prihantoro, Alif MuryP, Buku, Ebook,My Project Drawing/Desain,UI/UX,front end,Blogging, SEO,catatan"></a>
+        <div class="container">
+          <h4><a href="">MuryP</a></h4>
+          <p>
+            I'm MuryP. I'm from Indonesian.<br />I'm focus on Front End now. But I like Drawing, writing, and analyzed.
+          </p>
+
+          <div class='sosmednav'>
+
+            <a href='https://github.com/alifmuryp' rel='nofollow' target='_blank' title='github'>
+              <span class='github' /></a>
+
+            <a href='https://www.linkedin.com/in/alifmuryp' rel='nofollow' target='_blank' title='linkedin'>
+              <span class='linkedin' /></a>
+
+            <a href='https://www.instagram.com/murypstudio/' rel='nofollow' target='_blank' title='instagram'>
+              <span class='instagram' /></a>
+
+            <a href='https://twitter.com/murypstudio' rel='nofollow' target='_blank' title='twitter'>
+              <span class='twitter' /></a>
+
+            <a href='https://facebook.com/murypstudio' rel='nofollow' target='_blank' title='facebook'>
+              <span class='facebook' /></a>
+
+            <a href='https://pinterest.com/alifmuryp/' rel='nofollow' target='_blank' title='pinteres'>
+              <span class='pinteres' /></a>
+
+            <a href='https://www.deviantart.com/alifmuryp' rel='nofollow' target='_blank' title='deviantart'>
+              <span class='deviantart' /></a>
+
+            <a href='https://www.behance.net/muryp' rel='nofollow' target='_blank' title='behance'>
+              <span class='behance' /></a>
+
+            <a href='https://www.dribbble.com/murypstudio' rel='nofollow' target='_blank' title='drible'>
+              <span class='drible' /></a>
+
+          </div>
+
+        </div>
+      </div>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+
+        <li>
+          <a href="/about/">About</a>
+        </li>
+
+        <li>
+          <a href="/contact/">Kontak</a>
+        </li>
+
+        <li>
+          <a href="/note/">Catatan</a>
+        </li>
+
+        <li>
+          <a href="/bookmark">Bookmark</a>
+        </li>
+
+        <li>
+          <a href="/ideku/">Kumpulan Ide</a>
+        </li>
+
+      </ul>
+      <div class="myArrow spoiler">
+        <input type="checkbox" id="faq-1">
+        <div class=contentSpoiler>
+          She said for $300 she'll do it.
+        </div>
+        <label for="faq-1">How much?</label>
+      </div>
+      <div class="myArrow spoiler">
+        <input type="checkbox" id="faq-3">
+        <label for="faq-3">How many cans must I stack up?</label>
+        <div class=contentSpoiler>
+          As many as you need to wash you out from my mind and out of my consciousness.
+        </div>
+        <div class=contentSpoiler>
+          Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+        </div>
+      </div>
+      <input type="checkbox" id="nav1" />
+      <label for="nav1">Contact Me
+      </label>
+      <div class="mynav">
+        <div class='sosmednav'>
+          <h2>For bussines Contact :</h2>
+
+          <a href='https://t.me/muryp' rel='nofollow' target='_blank' title='telegram'>
+            <span class='telegram' /></a>
+
+          <a href='mailto:alifmuryp@gmail.com' rel='nofollow' target='_blank' title='gmail'>
+            <span class='gmail' /></a>
+
+          <h2>Ask me on:</h2>
+
+          <a href='https://twitter.com/murypstudio' rel='nofollow' target='_blank' title='twitter'>
+            <span class='twitter' /></a>
+
+          <a href='https://facebook.com/murypstudio' rel='nofollow' target='_blank' title='facebook'>
+            <span class='facebook' /></a>
+
+        </div>
+      </div>
+      <input type="checkbox" id="nav3" />
+      <label for="nav3">Laman
+      </label>
+      <div class="mynav dropdown">
+
+
+        <a href="https://muryp.my.id/hire/">Hire Me</a>
+
+        <a href="https://muryp.my.id/author/">Mengenai Penulis</a>
+
+        <a href="https://muryp.my.id/cokie/">Apa itu Cokie?</a>
+
+        <a href="https://muryp.my.id/bookmark/">Bookmark</a>
+
+        <a href="https://muryp.my.id/contact/">Contact</a>
+
+        <a href="https://muryp.my.id/about/">Tentang Saya</a>
+
+
+      </div>
+      <input type="checkbox" id="nav4" />
+      <label for="nav4">Kategori Blog
+      </label>
+      <div class="mynav dropdown">
+
+        <a href="/tags/amerika">
+          <b>1</b>Amerika </a>
+
+        <a href="/tags/anime">
+          <b>2</b>Anime </a>
+
+        <a href="/tags/aplikasi">
+          <b>2</b>Aplikasi </a>
+
+        <a href="/tags/bahasa">
+          <b>1</b>Bahasa </a>
+
+        <a href="/tags/cold-war">
+          <b>1</b>Cold War </a>
+
+        <a href="/tags/drawing">
+          <b>2</b>Drawing </a>
+
+        <a href="/tags/game">
+          <b>1</b>Game </a>
+
+        <a href="/tags/indonesia">
+          <b>1</b>Indonesia </a>
+
+        <a href="/tags/journey">
+          <b>4</b>Journey </a>
+
+        <a href="/tags/lucu">
+          <b>1</b>Lucu </a>
+
+        <a href="/tags/militer">
+          <b>1</b>Militer </a>
+
+        <a href="/tags/motivasi">
+          <b>6</b>Motivasi </a>
+
+        <a href="/tags/my-journey">
+          <b>9</b>My Journey </a>
+
+        <a href="/tags/my-story">
+          <b>12</b>My Story </a>
+
+        <a href="/tags/pengalaman">
+          <b>5</b>pengalaman </a>
+
+        <a href="/tags/russia">
+          <b>1</b>Russia </a>
+
+        <a href="/tags/sejarah">
+          <b>4</b>Sejarah </a>
+
+        <a href="/tags/spesial">
+          <b>1</b>Spesial </a>
+
+        <a href="/tags/story">
+          <b>10</b>Story </a>
+
+        <a href="/tags/tag">
+          <b>1</b>tag </a>
+
+        <a href="/tags/tips-trik">
+          <b>3</b>Tips Trik </a>
+
+        <a href="/tags/uni-soviet">
+          <b>1</b>Uni Soviet </a>
+
+        <a href="/tags/wisata">
+          <b>1</b>wisata </a>
+
+      </div>
+      <input type="checkbox" id="nav5" />
+      <label for="nav5">Kategori Ide
+      </label>
+      <div class="mynav dropdown">
+
+        <a href="/ide/artikel">
+          <b>1</b>artikel </a>
+
+        <a href="/ide/content">
+          <b>1</b>content </a>
+
+        <a href="/ide/template">
+          <b>1</b>template </a>
+
+        <a href="/ide/web">
+          <b>1</b>web </a>
+
+      </div>
+      <input type="checkbox" id="nav6" />
+      <label for="nav6">Kategori Catatan
+      </label>
+      <div class="mynav dropdown">
+
+      </div>
+      <div style="margin:50vh"></div>
+    </div>
+  </nav>
+  <!--search-->
+  <div id="mySearch">
+    <div class="humberger spoiler">
+      <input type="checkbox" id="search">
+      <i class="navicon"></i>
+      <label id="searchBtn"for="search">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <div class=contentSpoiler>
+        {{if ne .RelPermalink "/search/"}}
+        <div class="widget-search widget">
+          <form class="widget-search__form" role="search" method="get" action="{{ "search" | absURL }}">
+            <label>
+              <input class="widget-search__field" type="search" placeholder="{{ T "search_placeholder" }}Cari Apa?" value="" name="s" aria-label="{{ T "search_placeholder" }}">
+            </label>
+            <input class="widget-search__submit" type="submit" value="Search">
+          </form>
+        </div>
+        {{end}}
+      </div>
+    </div>
+  </div>
+  <!--end search-->
+  <!--share-->
+  <div id="myShare">
+    <div class="humberger spoiler">
+      <input type="checkbox" id="share">
+      <label id="shareBtn"for="share">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <i class="navicon"></i>
+      <div class='contentSpoiler'>
+        <a class='fb' title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u={{ $pageurl }}');">
+          <span class='facebook' />
+        </a>
+        <a class="tw" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status={{ $pageurl }}');">
+          <span class='twitter' />  </a>
+        <a class='wa' data-action='share/whatsapp/share' expr:href='"whatsapp://send?text=" + {{ .Title }} +"%20%2D%20" + {{ $pageurl }}'>
+          <span class='whatsapp' /></a>
+        <a class='tg' expr:href='"tg://msg?text=" + {{ .Title }} +" -" + {{ $pageurl }}' rel='nofollow' target='_blank' title='Share on Telegram'>
+          <span class='telegram' /></a>
+        {{ if .Params.image }}<a class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media={{ .Params.image }}&description=');"><span class='pinteres' /></a>{{end}}
+        <a class='le' expr:href='"http://www.linkedin.com/shareArticle?mini=true&amp;url=" + data:post.url + "&amp;title=" + data:post.title + "&amp;summary=" + data:post.snippets' onclick='window.open(this.href,"popupwindow","status=0,height=500,width=500,resizable=0,top=50,left=100");return false;' rel='nofollow' target='_blank' title='Share on LinkEdin'>
+          <span class='linkedin' /></a>
+        <a class='tr' href='http://www.tumblr.com/share' onclick='window.open(this.href,"popupwindow","status=0,height=500,width=500,resizable=0,top=50,left=100");return false;' rel='nofollow' target='_blank'>
+          <span class='tumblr' /></a>
+        <a class="mail" title="Share this through Email" onclick="window.open('mailto:?&body={{ $pageurl }}');">
+          <span class='gmail' /></a>
+        <a class='ln' expr:href='"https://timeline.line.me/social-plugin/share?url=" + data:post.url' target='_blank' title='Share On Line'>
+          <span class='line' /></a>
+      </div>
+    </div>
+  </div>
+  <!--end share-->
+</div>
+  <!--end central nav-->
+
+  <!--    <nav class="nav">-->
+  <!--  <input type="checkbox" id="checkbox_toggle">-->
+  <!--  <label id="navbar" for="checkbox_toggle">-->
+  <!--    <span></span>-->
+  <!--    <span></span>-->
+  <!--    <span></span>-->
+  <!--  </label>-->
+  <!--  <div class="navku mynav mynav2">-->
+  <!--    <div class="cardInfo">-->
+  <!--      <a href="{{.Site.Params.Img}}"> <img src="{{.Site.Params.Thumb}}" alt="{{.Site.Params.Description}}"></a>-->
+  <!--      <div class="container">-->
+  <!--        <h4><a href="{{.Site.Params.urlAuthors}}">{{.Site.Params.Author}}</a></h4>-->
+  <!--        <p>-->
+  <!--          {{.Site.Params.Kataku | safeHTML}}-->
+  <!--        </p>-->
+  <!--        {{ if .IsHome }}-->
+  <!--        <div class='sosmednav'>-->
+  <!--          {{ range .Site.Menus.sosmed.Sort.ByWeight }}-->
+  <!--          <a href='{{ .URL }}' rel='nofollow' target='_blank' title='{{ .Name }}'>-->
+  <!--            <span class='{{ .Name }}' /></a>-->
+  <!--          {{ end }}-->
+  <!--        </div>-->
+  <!--        {{end}}-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <ul>-->
+  <!--      {{ range .Site.Menus.main.Sort.ByWeight }}-->
+  <!--      <li>-->
+  <!--        <a href="{{ .URL }}">{{ .Name }}</a>-->
+  <!--      </li>-->
+  <!--      {{ end }}-->
+  <!--    </ul>-->
+  <!--    <input type="checkbox" id="nav1" />-->
+  <!--    <label for="nav1">Contact Me-->
+  <!--    </label>-->
+  <!--    <div class="mynav">-->
+  <!--      <div class='sosmednav'>-->
+  <!--        <h2>For bussines Contact :</h2>-->
+  <!--        {{ range .Site.Menus.contact.Sort.ByWeight }}-->
+  <!--        <a href='{{ .URL }}' rel='nofollow' target='_blank' title='{{ .Name }}'>-->
+  <!--          <span class='{{ .Name }}' /></a>-->
+  <!--        {{ end }}-->
+  <!--        <h2>Ask me on:</h2>-->
+  <!--        {{ range .Site.Menus.ask.Sort.ByWeight }}-->
+  <!--        <a href='{{ .URL }}' rel='nofollow' target='_blank' title='{{ .Name }}'>-->
+  <!--          <span class='{{ .Name }}' /></a>-->
+  <!--        {{ end }}-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <input type="checkbox" id="nav3" />-->
+  <!--    <label for="nav3">Laman-->
+  <!--    </label>-->
+  <!--    <div class="mynav dropdown">-->
+  <!--      {{ with .Site.GetPage "/laman" }}-->
+  <!--      {{ range .Paginator.Pages}}-->
+  <!--      <a href="{{.Permalink}}">{{.Name}}</a>-->
+  <!--      {{ end }}-->
+  <!--      {{ end }}-->
+  <!--    </div>-->
+  <!--    <input type="checkbox" id="nav4" />-->
+  <!--    <label for="nav4">Kategori Blog-->
+  <!--    </label>-->
+  <!--    <div class="mynav dropdown">-->
+  <!--      {{ range $name, $taxonomy := .Site.Taxonomies.tags }}-->
+  <!--      <a href="/tags/{{$name}}">-->
+  <!--        <b>{{ .Count }}</b>{{.Page.Title }} </a>-->
+  <!--      {{ end }}-->
+  <!--    </div>-->
+  <!--    <input type="checkbox" id="nav5" />-->
+  <!--    <label for="nav5">Kategori Ide-->
+  <!--    </label>-->
+  <!--    <div class="mynav dropdown">-->
+  <!--      {{ range $name, $taxonomy := .Site.Taxonomies.ide }}-->
+  <!--      <a href="/ide/{{$name}}">-->
+  <!--        <b>{{ .Count }}</b>{{.Page.Title }} </a>-->
+  <!--      {{ end }}-->
+  <!--    </div>-->
+  <!--    <input type="checkbox" id="nav6" />-->
+  <!--    <label for="nav6">Kategori Catatan-->
+  <!--    </label>-->
+  <!--    <div class="mynav dropdown">-->
+  <!--      {{ range $name, $taxonomy := .Site.Taxonomies.catatan }}-->
+  <!--      <div>-->
+  <!--        <a href="/catatan/{{$name}}"><b>{{ .Count }}</b> {{.Page.Title}} </a>-->
+  <!--      </div>-->
+  <!--      {{ end }}-->
+  <!--    </div>-->
+  <!--    <div style="margin:50vh"></div>-->
+  <!--  </div>-->
+  <!--</nav>-->
+  <div>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores commodi cum earum debitis consequuntur voluptatum consequatur laboriosam, sint quod eum, quo, est sed provident. Provident amet nihil, voluptates nemo fugiat.
+  </div>
+  <div>
+    Recusandae soluta, illo quae temporibus, aperiam exercitationem ex dolor aspernatur illum hic cum nam aut, porro corporis. Amet tempore impedit, minima, praesentium odit atque ducimus dicta, quam aut alias quo.
+  </div>
+  <div>
+    Aliquid quae, aperiam, nihil facere a eius distinctio. Consequuntur quidem eum repellat cupiditate quam beatae quisquam! Id iusto ut incidunt! Repellat illo neque quae eum explicabo pariatur quisquam ullam vel!
+  </div>
+  <div>
+    Fuga, totam, ducimus. Soluta qui doloribus perspiciatis laboriosam magnam architecto autem, eveniet sed eius et voluptatibus deleniti at possimus rem iste saepe, recusandae suscipit optio corrupti, pariatur hic. Illo, earum!
+  </div>
+  <div>
+    Facere suscipit minus non nobis repudiandae sunt dolor facilis dignissimos provident sapiente beatae, animi dolore soluta laborum nesciunt accusamus. Culpa dolorem error ratione hic animi dolores voluptas, quas! Fuga, eius.
+  </div>
+  <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti quasi quam sed voluptatibus ipsam amet voluptatem saepe reprehenderit illo tempora. Unde velit minus laudantium nulla atque recusandae, iure nobis dolorem.</div>
+  <div>Ducimus nostrum exercitationem distinctio consequuntur dolore, cum facere necessitatibus vel temporibus tempore possimus dolorum ex numquam eaque! Blanditiis minima, fugiat, sequi harum modi ab beatae consectetur, numquam omnis, asperiores adipisci.</div>
+  <div>Animi, voluptas ratione culpa similique laboriosam? Itaque aliquid laboriosam cum, vero soluta corrupti in esse rem, molestias accusantium nemo amet. Excepturi in explicabo, id asperiores eum quod itaque. Reprehenderit, eveniet!</div>
+  <div>Sint eligendi necessitatibus illo nulla, fugiat id ad corrupti sed totam magnam nisi! Ratione sunt inventore provident? Magnam quis, officiis optio qui, cum excepturi ab ratione sequi saepe provident ut?</div>
+  <div>Nisi, quidem quia. Dolorem sit quis, cumque, mollitia consequatur, doloremque minima perferendis nihil laborum autem id laudantium itaque repudiandae at, eligendi error recusandae tempora maxime. Natus ipsam nostrum aspernatur ipsa.</div>
+</body>
+
+</html>

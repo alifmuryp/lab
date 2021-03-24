@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="" content="">
+    <title>tes nav</title>
+    <style type="text/css" media="all">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+ input[type="checkbox"] {
+    /*spoiler global*/
+      padding: 5px;
+      opacity: 0;
+    }
+     .spoiler label {
+      /* btn spoiler*/
+      cursor: pointer;
+      position: relative;
+      display: block;
+      border-top: 1px solid red;
+      border-bottom: 1px solid red;
+      text-align: right;
+      padding: 8px 19px 8px 15px;
+      width: 90% ;
+    }
+     .shareTerbang label {
+      /*btn share reset btn spoiler*/
+ border: 0;
+      width:50px!important;
+      height: 50px;
+    }
+    /*isi konten spoiler*/
+    #nav[type="checkbox"]:checked ~  .kontenNav {
+      /*setelah di klick*/
+      opacity: 100%;
+      transform: translate(0,0);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+    }
+    .kontenNav,.spoilerKonten {
+      /*reset daleman central*/
+      background: green;
+      overflow: hidden;
+      transition: all .6s;
+    }
+    .kontenNav {
+      /*reset daleman spoiler navigasi*/
+      width: 100vw!important;
+      height: 100vh;
+      transform: translate(999px,0);
+      overflow: scroll;
+      margin: 0;
+    }
+    .spoilerKonten {
+      /*reset daleman spoiler global*/
+      opacity: 0;
+      width: 100vw;
+      padding: 0;
+      height: 0;
+    }
+    .spoiler input[type="checkbox"]:checked ~  .spoilerKonten {
+      /*setelah di klick*/
+      opacity: 100%;
+      padding: 15px 0;
+      height: auto;
+}
+/* Melayang */
+    .navTerbang,.shareTerbang {
+      position: fixed;
+      bottom: 0;
+      width: 50px;
+    }
+.navTerbang{
+      z-index: 11;
+      right: 0;}
+.shareTerbang{left: 0;
+      z-index: 10;
+}
+/* Tombol Nav & Spoiler*/
+     i.iconShare {
+       background-size: 30px;
+      width: 50px;
+      min-height: 50px;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: absolute;
+      left: 15px;
+      background-color: red;
+      border-radius: 15px;
+      bottom: 15px;
+      background-image: url("data:image/svg+xml, %3Csvg fill='white' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7c2.761 0 5 2.239 5 5s-2.239 5-5 5-5-2.239-5-5 2.239-5 5-5zm11.122 12.065c-.073.301-.122.611-.122.935 0 2.209 1.791 4 4 4s4-1.791 4-4-1.791-4-4-4c-1.165 0-2.204.506-2.935 1.301l-5.488-2.927c-.23.636-.549 1.229-.943 1.764l5.488 2.927zm7.878-15.065c0-2.209-1.791-4-4-4s-4 1.791-4 4c0 .324.049.634.122.935l-5.488 2.927c.395.535.713 1.127.943 1.764l5.488-2.927c.731.795 1.77 1.301 2.935 1.301 2.209 0 4-1.791 4-4z' /%3E%3C/svg%3E");
+    }
+    /*Anak Panah (Arrow)*/
+    .myArrow label::before {
+      /*sebelum checked*/
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 50%;
+      left: 10px;
+      /*menambah anak panah*/
+      border-left: 8px solid red;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      margin-top: -8px;
+      transition: all .5s;
+      width: 0;
+    }
+    .myArrow input[type="checkbox"]:checked ~ label::before {
+      /*setelah checked*/
+      transform: rotate(90deg) translate(5px,-13px);
+    }
+    /* humberger */
+    .navBtn {
+      /*btn nav humberger*/
+      box-sizing: border-box;
+      width: 50px;
+      padding: 10px;
+      height: 50px;
+      cursor: pointer;
+      user-select: none;
+      flex-direction: column;
+      justify-content: space-evenly;
+      display: flex;
+      position: absolute;
+      border-radius: 15px;
+      z-index: 9;
+      bottom: 15px;
+      right: 15px;
+      background: red;
+    }
+.navBtn span {
+      display: inherit;
+      width: 30px;
+      height: 0;
+      border-top: 5px solid #fff;
+      transition: .5s;
+      margin: 0 auto
+    }
+.navBtn span:nth-child(2),.navBtn span:nth-child(3) {
+      transform-origin: 0 0
+    }
+    /*humberger checked btn*/
+    #nav[type=checkbox]:checked ~ .navBtn span {
+      display: flex;
+      width: 30px;
+      height: 0;
+      border-top: 1px;
+      transition: .5s;
+      margin: -9px 10px auto;
+      opacity: 100%;
+    }
+    #nav[type="checkbox"]:checked ~ .navBtn span:nth-child(1) {
+      transform: rotate(45deg) translate(5px,23px)!important;
+      color: #fff;
+      border: 3.5px solid;
+    }
+    #nav[type=checkbox]:checked ~ .navBtn span:nth-child(2) {
+      transform: scale(0)!important;
+      opacity: 0
+    }
+    #nav[type="checkbox"]:checked ~ .navBtn span:nth-child(3) {
+      transform: rotate(-45deg) translate(-17px,4px) !important;
+      color: #fff;
+      border: 3.5px solid;
+    }
+    </style>
+  </head>
+  <body>
+      <div class="spoiler myArrow">
+        <input type="checkbox" id="aq1">
+        <label for="aq1">How much?</label>
+        <div class=spoilerKonten>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla consectetur repudiandae tenetur alias ipsum odio quis, natus suscipit earum incidunt aspernatur dignissimos qui distinctio mollitia modi, fugit id sint facere.
+        </div>
+      </div>
+  <div class="main">
+  <div class="content">
+  <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit vero deserunt fugit ea quo, harum, explicabo beatae veritatis dolor quae voluptatem, repudiandae dolorem recusandae. Aspernatur, sed et vel maiores aliquid?</div>
+  <div>Odit, nemo! Esse cupiditate reprehenderit incidunt fugiat molestiae ipsam itaque cumque, ratione, repudiandae doloremque quae eum est a ducimus assumenda, enim dolor quaerat autem fuga deserunt quas maiores explicabo earum?</div>
+  <div>Doloremque, dolorum blanditiis numquam vel natus! Reiciendis corporis cumque facilis assumenda ex maxime, cupiditate autem aliquid maiores voluptas dignissimos repellendus voluptates a ipsam eos reprehenderit aspernatur quaerat amet non veritatis?</div>
+  <div>Distinctio recusandae reprehenderit ipsum amet sapiente ad cumque tempora est praesentium repudiandae alias iure quod quis eum, numquam laudantium modi, sint natus dolorum ea, nisi quibusdam impedit! Reiciendis, facilis, magnam!</div>
+  <div>Exercitationem unde vitae, ab atque alias fugit et cumque blanditiis. Quibusdam totam fuga culpa nam facilis, ratione maiores adipisci, harum reiciendis. Hic exercitationem earum totam, optio magni recusandae aspernatur sit?</div>
+  <div>Suscipit, quae sequi voluptas aut illo quas molestiae, fugit iste cumque magnam tempore enim. Cumque ducimus explicabo soluta iusto, id perferendis quibusdam sint quo labore fuga sunt illo officiis quidem.</div>
+  <div>Aliquam hic quibusdam illo autem alias magnam accusamus laudantium dolores labore facilis voluptatem aliquid, quas error cumque, assumenda optio voluptatibus quo iure voluptatum nobis explicabo ipsa incidunt! Sunt, eum, cum.</div>
+  <div>Beatae architecto odio totam tempore fugit magni, iure atque ullam accusamus itaque sapiente repellendus, rerum voluptatum amet, ipsa officia. Rerum voluptas atque iure labore, eos veritatis sit necessitatibus error est.</div>
+  <div>Delectus ratione ex quo eveniet at dicta fugiat obcaecati quidem quae, voluptates ducimus modi, doloribus illum. Reiciendis molestiae eaque modi praesentium voluptates maxime sint maiores, ullam quisquam, labore, dicta quos!</div>
+  <div>Nihil hic accusamus minima aut quasi quisquam accusantium amet animi odit consequatur mollitia, commodi! Culpa commodi eligendi suscipit, voluptates sint debitis cumque, est reiciendis illo nobis ratione optio excepturi porro.</div>
+  </div>
+  <div class="sidebar">
+      <!--nav-->
+      <div class="navTerbang">
+      <div class="nav">
+        <input type="checkbox" id="nav">
+        <label class="navBtn" for="nav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+        <div class=kontenNav>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, magnam, illum nam itaque sint dolorem possimus debitis quam facere non laboriosam. Quidem beatae illum libero eaque, similique a quas nulla!
+      <div class="spoiler myArrow">
+        <input type="checkbox" id="listBar">
+        <label for="listBar">How much?</label>
+        <div class=spoilerKonten>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla consectetur repudiandae tenetur alias ipsum odio quis, natus suscipit earum incidunt aspernatur dignissimos qui distinctio mollitia modi, fugit id sint facere.
+        </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      <div class="shareTerbang">
+      <div class="spoiler">
+        <input type="checkbox" id="share">
+        <div class=spoilerKonten>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla consectetur repudiandae tenetur alias ipsum odio quis, natus suscipit earum incidunt aspernatur dignissimos qui distinctio mollitia modi, fugit id sint facere.
+        </div>
+        <label for="share"><i class="iconShare"></i></label>
+      </div>
+      </div>
+  </div>
+  </div>
+  </body>
+</html>
